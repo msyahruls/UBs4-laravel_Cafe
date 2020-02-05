@@ -48,7 +48,7 @@
                         <div class="hero-copy">
                             <h1 class="hero-title h2-mobile mt-0 is-revealing">This is Laravel Project on Github</h1>
                             <p class="hero-paragraph is-revealing">Click button bellow to see our new Progress</p>
-                            <p class="hero-cta is-revealing"><a class="button button-primary button-shadow" href="#productTable">Product Table</a></p>
+                            <p class="hero-cta is-revealing"><a class="button button-primary button-shadow" href="#productTable">For User</a> <a class="button button-primary button-shadow" href="{{ url('product') }}">For Admin</a></p>
                         </div>
                         <div class="hero-illustration is-revealing">
                             <svg width="528" height="413" viewBox="0 0 528 413" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,10 @@
                     </div>
                 </div>
             </section>
+
+<!-- ------------------------------------------------------------------------------------------------------------------- -->
             @yield('content')
+<!-- ------------------------------------------------------------------------------------------------------------------- -->
         </main>
 
         <footer class="site-footer text-light">

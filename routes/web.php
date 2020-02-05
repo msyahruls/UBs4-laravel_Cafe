@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('index','ProductController');
+// Route::get('/admin', function () {
+//     return view('index');
 // });
 
-Route::get('/', 'ProductController@index');
-// Route::get('/product', 'ProductController@index');
+Route::get('/', 'ProductController@indexUser');
+Route::resource('product', 'ProductController');
