@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use File;
 // use DB;
 // use Validator;
 
@@ -15,63 +17,116 @@ class ProductController extends Controller
     	// $product = Product::all();
     	// return view('product.index')->with('products', $product);
 
-    	$products = Product::orderBy('category','asc')->paginate(10);
+    	$products = Product::join('category', 'category.category_id', '=', 'product.product_category')
+            ->orderBy('product_category','asc')
+            ->paginate(10);
         return view('product.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function indexUser()
     {
-    	$products = Product::all()->sortBy('category');
+    	$products = Product::join('category', 'category.category_id', '=', 'product.product_category')->get();
+            // ->orderBy('product_category','asc');
+            // ->sortBy('product_category');
         return view('productUser.index')->with('products', $products);
     }
 
     public function create()
     {
-    	return view('product.create');
+        $category = Category::all();
+        return view('product.create')->with('categories', $category);
+    	// return view('product.create');
     }
 
 	public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'category' => 'required',
+            'name'      => 'required',
+            'category'  => 'required',
+            'image'     => 'required|image|max:2048'
         ]);
+
+        $image = $request->file('image');
+
+        $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('images'), $new_name);
+
+        $form_data = array(
+            'product_name'       =>   $request->name,
+            'product_category'   =>   $request->category,
+            'product_image'      =>   $new_name
+        );
   
-        Product::create($request->all());
+        Product::create($form_data);
    
         return redirect()->route('product.index')
-                        ->with('success','Product created successfully.');
+                        ->with('success','Data Added successfully');
     }
 
     public function show(Product $product)
     {
-        return view('product.show',compact('product'));
+        // print($product);
+        $category = Product::with('category')
+            ->where('product.product_id', '=', $product->product_category)->get();
+        return view('product.show',compact('product'))->with('categories', $category);
     }
 
     public function edit(Product $product)
     {
-        return view('product.edit',compact('product'));
+        // print($product);
+        $category = Category::all();
+        return view('product.edit',compact('product'))->with('categories', $category);
     }
 
     public function update(Request $request, Product $product)
     {
-        $request->validate([
-            'name' => 'required',
-            'category' => 'required',
-        ]);
-  
-        $product->update($request->all());
+        $image_name = $request->hidden_image;
+        $image = $request->file('image');
+        if($image != ''){
+            $request->validate([
+                'name'      =>  'required',
+                'category'  =>  'required',
+                'image'     =>  'image|max:2048'
+            ]);
+
+            $image_path = "images/".$image_name;  // Value is not URL but directory file path
+            if(File::exists($image_path)) {
+                File::delete($image_path);
+            }
+
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $image_name);
+        }else{
+            $request->validate([
+                'name'      =>  'required',
+                'category'  =>  'required'
+            ]);
+        }
+
+        $form_data = array(
+            'product_name'      =>  $request->name,
+            'product_category'  =>  $request->category,
+            'product_image'     =>  $image_name
+        );
+
+        $product->update($form_data);
   
         return redirect()->route('product.index')
-                        ->with('success','Product updated successfully');
+                        ->with('success','Data is successfully updated');
     }
 
     public function destroy(Product $product)
     {
+        $image_path = "images/".$product->image;  // Value is not URL but directory file path
+        print($image_path);
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+        }
+
         $product->delete();
   
         return redirect()->route('product.index')
-                        ->with('success','Product deleted successfully');
+                        ->with('success','Data is successfully deleted');
     }
 }

@@ -245,7 +245,7 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html">Cafe.in</a>
+            <a href="{{ url('/') }}">Cafe.in</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">C.in</a>
@@ -279,6 +279,7 @@
                   <li><a class="nav-link" href="bootstrap-card.html">Card</a></li>
                 </ul>
               </li> -->
+              <li><a class="nav-link" href="{{ url('category') }}"><i class="fas fa-water"></i> <span>Categories</span></a></li>
               <li><a class="nav-link" href="{{ url('product') }}"><i class="fas fa-fire"></i> <span>Products</span></a></li>
           </ul>
 

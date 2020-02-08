@@ -18,8 +18,8 @@
                 @foreach($products as $product)
                     <tr>
                         <td width="4%"><?php echo $no++; ?></td>
-                        <td>{{ $product->name }}</td>
-                        <td width="24%">{{ $product->category }}</td>
+                        <td>{{ $product->product_name }}</td>
+                        <td width="24%">{{ $product->category_name }}</td>
                         <!-- <td width="12%">
                             <div class="btn-group">
                                 <button class="btn btn-sm btn-info view_modal color" id="view_data" product="{{ $product->id }}" >👁</button>

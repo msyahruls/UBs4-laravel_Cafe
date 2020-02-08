@@ -17,3 +17,4 @@
 
 Route::get('/', 'ProductController@indexUser');
 Route::resource('product', 'ProductController');
+Route::resource('category', 'CategoryController');

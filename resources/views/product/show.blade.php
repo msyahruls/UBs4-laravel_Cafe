@@ -8,13 +8,19 @@
             <div class="card-body">
                 <div class="form-group">
                   <label>Name</label>
-                  <input type="text" class="form-control" name="name" value="{{ $product->name }}" readonly="">
+                  <input type="text" class="form-control" name="name" value="{{ $product->product_name }}" readonly="">
                 </div>
                 <div class="form-group">
                   <label>Category</label>
-                  <input type="text" class="form-control" name="category" value="{{ $product->category }}" readonly="">
-                </div>                
+                  @foreach($categories as $category)
+                    <input type="text" class="form-control" name="category" value="{{ $category->category->category_name }}" readonly="">
+                  @endforeach
+                </div>
+                <div class="form-group">
+                  <label>Image</label>
+                  <img src="{{ url('/') }}/images/{{ $product->product_image }}" class="img-thumbnail" />
+                </div>
             </div>
-        </div>
+    </div>
 </section>
 @stop
