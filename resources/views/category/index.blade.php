@@ -16,6 +16,22 @@
     @endif
 
     <div class="card">
+        <div class="card-header">
+            <form method="GET" role="search">
+                <!-- {{ csrf_field() }} -->
+                <div class="search-element">
+                    <div class="input-group">
+                      <input type="search" class="form-control" name="search" placeholder="Search" value="{{ request()->get('search') }}">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </span>
+                    </div>
+                </div>
+            </form>
+            <a href="{{ url('product') }}" class="btn btn-primary">All Data</a>
+        </div>
         <div class="card-body">
              <div class="table-responsive">
                 <p class="hero-cta is-revealing"><a class="btn btn-primary" href="{{ route('category.create') }}"><i class="fas fa-plus"></i> Add</a></p>
