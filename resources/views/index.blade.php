@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 @section('content')
 <section class="features section" style="padding: 50px 100px" id="productTable">
     <h2 class="section-title mt-0 text-center">Product Table</h2>

@@ -15,7 +15,13 @@
 //     return view('index');
 // });
 
-Route::get('/', 'ProductController@indexUser');
-Route::resource('product', 'ProductController');
-Route::any('product/search', 'ProductController@search');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'WelcomeController@index');
+
 Route::resource('category', 'CategoryController');
+
+Route::resource('product', 'ProductController')->middleware('auth');
+// Route::any('product/search', 'ProductController@search');
+

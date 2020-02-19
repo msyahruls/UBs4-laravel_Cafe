@@ -12,6 +12,11 @@ use File;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index(Request $request)
     {
     	// $product = Product::all();
@@ -86,9 +91,11 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        // print($product);
+        // $product
         $category = Product::with('category')
             ->where('product.product_id', '=', $product->product_category)->get();
+        // print($product);
+        // print($category);
         return view('product.show',compact('product'))->with('categories', $category);
     }
 
