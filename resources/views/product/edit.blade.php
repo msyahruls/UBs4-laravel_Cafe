@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                   <label>Category</label>
-                  <select class="form-control" name="category">
+                  <select class="form-control" name="category">                    
                     @foreach($categories as $category)
                       <option value="{{ $category->category_id }}" {{ $category->category_id == $product->product_category ? 'selected="selected"' : '' }} >{{ $category->category_name }}</option>
                     @endforeach

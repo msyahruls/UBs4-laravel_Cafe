@@ -13,7 +13,7 @@
                 <div class="form-group">
                   <label>Product</label>
                   <textarea class="form-control" readonly="" style="height: 100px; max-height: 150px; min-height: 80px">
-@foreach($category->product as $t){{ $t->product_name }},@endforeach</textarea>
+@foreach($category->product as $t){{ $t->product_id }}|{{ $t->product_name }}, @endforeach</textarea>
                 </div>
             </div>
         </div>

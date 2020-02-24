@@ -21,7 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'WelcomeController@index');
 
 Route::resource('category', 'CategoryController');
-
-Route::resource('product', 'ProductController')->middleware('auth');
+Route::resource('product', 'ProductController');
 // Route::any('product/search', 'ProductController@search');
 
