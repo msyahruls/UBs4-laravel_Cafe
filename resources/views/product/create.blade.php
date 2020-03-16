@@ -29,7 +29,6 @@
                 </div>
                 <div class="form-group">
                   <label>Category</label>
-                  <!-- <input type="text" class="form-control" name="category"> -->
                   <select class="form-control" name="category">
                     @foreach($categories as $category)
                       <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
@@ -37,12 +36,15 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="price">
+                </div>
+                <div class="form-group">
                   <label>Image</label>
-                  <!-- <input type="file" class="form-control" name="image"> -->
-                  <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="customFile" name="image">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
+                  <div id="image-preview" class="image-preview">
+                    <label for="image-upload" id="image-label">Choose File</label>
+                    <input type="file" name="image" id="customFile">
+                  </div>
                 </div>
             </div>
             <div class="card-footer text-right">

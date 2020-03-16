@@ -58,8 +58,14 @@ figure,
 footer,
 header,
 hgroup,
-main,
-nav,
+main {
+  background: #120F0F;
+}
+
+nav{
+  background-color: #C39A63;
+}
+
 section {
   display: block;
 }
@@ -72,7 +78,7 @@ body {
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #f8fafc;
+  background-color: #120F0F;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -4962,9 +4968,9 @@ input[type=button].btn-block {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #C39A63;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 0.25rem;
 }
 

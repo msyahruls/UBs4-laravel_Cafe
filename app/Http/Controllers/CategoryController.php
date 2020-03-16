@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Exports\CategoryExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-    	// $category = Category::all();
-    	// return view('category.index')->with('categories', $category);
+        $categories = Category::when($request->search, function($query) use($request){
+            $query->where('category_name', 'LIKE', '%'.$request->search.'%');})
+            ->orderBy('category_name','asc')->paginate(10); 
 
-    	$categories = Category::orderBy('category_name','asc')->paginate(10);
         return view('category.index',compact('categories'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     public function create()
@@ -36,7 +39,6 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        // print($category);
         return view('category.show',compact('category'));
     }
 
@@ -63,5 +65,10 @@ class CategoryController extends Controller
   
         return redirect()->route('category.index')
                         ->with('success','Category deleted successfully');
+    }
+
+    public function export()
+    {
+        return Excel::download(new CategoryExport, 'Categories.xlsx');
     }
 }

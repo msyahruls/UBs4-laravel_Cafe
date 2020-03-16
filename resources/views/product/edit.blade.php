@@ -37,6 +37,10 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" class="form-control" name="price" value="{{ $product->product_price }}">
+                </div>
+                <div class="form-group">
                   <label>Image</label>
                   <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile" name="image">

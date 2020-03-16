@@ -17,6 +17,10 @@
                   @endforeach
                 </div>
                 <div class="form-group">
+                  <label>Price</label>
+                  <input type="text" class="form-control" name="price" value="{{ $product->product_price }}" readonly="">
+                </div>
+                <div class="form-group">
                   <label>Image</label>
                   <img src="{{ url('/') }}/images/{{ $product->product_image }}" class="img-thumbnail" />
                 </div>

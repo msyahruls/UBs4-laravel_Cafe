@@ -4,59 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Product;
+use App\Exports\ProductExport;
+use App\Http\Controllers\Controller;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use File;
-// use DB;
-// use Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {    
     public function index(Request $request)
-    {
-    	// $product = Product::all();
-    	// return view('product.index')->with('products', $product);
-        
+    {        
         $products = Product::when($request->search, function($query) use($request){
             $query->where('product_name', 'LIKE', '%'.$request->search.'%');})
             ->join('category', 'category.category_id', '=', 'product.product_category')
             ->orderBy('category_name','asc')->paginate(10); 
-
-    	// $products = Product::join('category', 'category.category_id', '=', 'product.product_category')
-     //        ->orderBy('product_category','asc')->paginate(5);
         return view('product.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
-
-    // public function indexUser()
-    // {
-    // 	$products = Product::join('category', 'category.category_id', '=', 'product.product_category')->get();
-    //         // ->orderBy('product_category','asc')->paginate(10);
-    //         // ->sortBy('product_category');
-    //     // return view('index')->withProducts($products);
-    //     return view('index',compact('products'))
-    //         ->with('i', (request()->input('page', 1) - 1) * 10);
-    // }
-
-    // public function search(Request $request)
-    // {
-    //     $search = $request->search;
-    //     if($search != ""){
-    //     $products = Product::join('category', 'category.category_id', '=', 'product.product_category')
-    //         ->where ( 'product_name', 'LIKE', '%' . $search . '%' )->paginate (5)->setPath ( '' );
-    //     $pagination = $products->appends ( array ('search' => $request->search ) );
-    //     if (count ( $products ) > 0)
-            // return view ( 'product.index' )->withDetails ( $products )->withQuery ( $search )->with('i', (request()->input('page', 1) - 1) * 5);
-    //     }
-    //         // print('No Details found. Try to search again !');
-    //         return view ( 'product.index' )->withMessages ( 'No Details found. Try to search again !' );
-    // }
 
     public function create()
     {
         $category = Category::all();
         return view('product.create')->with('categories', $category);
-    	// return view('product.create');
     }
 
 	public function store(Request $request)
@@ -64,6 +34,7 @@ class ProductController extends Controller
         $request->validate([
             'name'      => 'required',
             'category'  => 'required',
+            'price'      => 'required',
             'image'     => 'required|image|max:2048'
         ]);
 
@@ -75,6 +46,7 @@ class ProductController extends Controller
         $form_data = array(
             'product_name'       =>   $request->name,
             'product_category'   =>   $request->category,
+            'product_price'       =>   $request->price,
             'product_image'      =>   $new_name
         );
   
@@ -88,16 +60,12 @@ class ProductController extends Controller
     {
         $category = Product::with('category')
             ->where('product.product_id', '=', $product->product_id)->get();
-        // print($product);
-        // print($category);
         return view('product.show',compact('product'))->with('categories', $category);
     }
 
     public function edit(Product $product)
     {
         $category = Category::all();
-        // print($product);
-        // print($category);
         return view('product.edit',compact('product'))->with('categories', $category);
     }
 
@@ -109,6 +77,7 @@ class ProductController extends Controller
             $request->validate([
                 'name'      =>  'required',
                 'category'  =>  'required',
+                'price'      =>  'required',
                 'image'     =>  'image|max:2048'
             ]);
 
@@ -122,13 +91,15 @@ class ProductController extends Controller
         }else{
             $request->validate([
                 'name'      =>  'required',
-                'category'  =>  'required'
+                'price'  =>  'required',
+                'category'  =>  'required',
             ]);
         }
 
         $form_data = array(
             'product_name'      =>  $request->name,
             'product_category'  =>  $request->category,
+            'product_price'     =>  $request->price,
             'product_image'     =>  $image_name
         );
 
@@ -150,5 +121,10 @@ class ProductController extends Controller
   
         return redirect()->route('product.index')
                         ->with('success','Data is successfully deleted');
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductExport, 'Products.xlsx');
     }
 }

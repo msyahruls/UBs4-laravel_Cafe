@@ -17,10 +17,19 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index')->name('landing');
+Route::get('menu', 'WelcomeController@menu')->name('menu');
 
-Route::resource('category', 'CategoryController');
-Route::resource('product', 'ProductController');
-// Route::any('product/search', 'ProductController@search');
+Route::get('home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+	Route::get('dashboard/export', 'DashboardController@export');
+	Route::get('category/export', 'CategoryController@export');
+	Route::get('product/export', 'ProductController@export');
+
+	Route::resource('category', 'CategoryController');
+	Route::resource('product', 'ProductController');
+});
