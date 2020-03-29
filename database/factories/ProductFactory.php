@@ -11,6 +11,6 @@ $factory->define(Product::class, function (Faker $faker) {
     	'product_name' => $faker->company,
     	'product_category' => $faker->numberBetween($min=1, $max=10),
         'product_image' => $faker->picsum('public/images', 400, 400, false),
-        'product_category' => $faker->numberBetween($min=10000, $max=80000),
+        'product_price' => $faker->numberBetween($min=10000, $max=80000),
     ];
 });
