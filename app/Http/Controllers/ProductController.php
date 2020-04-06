@@ -46,7 +46,7 @@ class ProductController extends Controller
         $form_data = array(
             'product_name'       =>   $request->name,
             'product_category'   =>   $request->category,
-            'product_price'       =>   $request->price,
+            'product_price'      =>   $request->price,
             'product_image'      =>   $new_name
         );
   

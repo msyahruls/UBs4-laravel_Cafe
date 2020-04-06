@@ -59,8 +59,8 @@
           </div>
           <ul class="sidebar-menu">
               <li><a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
-              <li><a class="nav-link" href="{{ url('category') }}"><i class="fas fa-coffee"></i> <span>Categories</span></a></li>
-              <li><a class="nav-link" href="{{ url('product') }}"><i class="far fa-newspaper"></i> <span>Products</span></a></li>
+              <li><a class="nav-link" href="{{ route('category.index') }}"><i class="fas fa-coffee"></i> <span>Categories</span></a></li>
+              <li><a class="nav-link" href="{{ route('product.index') }}"><i class="far fa-newspaper"></i> <span>Products</span></a></li>
               <li><a class="nav-link" href="{{ route('landing') }}"><i class="far fa-newspaper"></i> <span>Landing Page</span></a></li>
           </ul>
 

@@ -37,7 +37,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label>Name</label>
+                  <label>Price</label>
                   <input type="text" class="form-control" name="price" value="{{ $product->product_price }}">
                 </div>
                 <div class="form-group">

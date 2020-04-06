@@ -20,9 +20,9 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-                <span class="" role="alert">
+<!--                 <span class="" role="alert">
                     <strong>test@test.com</strong>
-                </span>
+                </span> -->
               </div>
 
               <div class="form-group">
@@ -35,9 +35,9 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-                <span class="" role="alert">
+                <!-- <span class="" role="alert">
                     <strong>testtest</strong>
-                </span>
+                </span> -->
               </div>
 
               <div class="form-group">
