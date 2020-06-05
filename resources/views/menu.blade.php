@@ -28,7 +28,7 @@
                                         <div class="text">
                                             <h3><a href="#">{{ $product->product_name }}</a></h3>
                                             <p>{{ $product->category_name }}</p>
-                                            <p class="price"><span>IDR {{ $product->product_price }}</span></p>
+                                            <p class="price"><span>$ {{ $product->product_price }}</span></p>
                                             <p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
                                         </div>
                                     </div>

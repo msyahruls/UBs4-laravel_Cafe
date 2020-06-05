@@ -60,7 +60,8 @@ class ProductController extends Controller
     {
         $category = Product::with('category')
             ->where('product.product_id', '=', $product->product_id)->get();
-        return view('product.show',compact('product'))->with('categories', $category);
+        // return view('product.show',compact('product'))->with('categories', $category);
+        return json_encode($category);
     }
 
     public function edit(Product $product)

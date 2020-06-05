@@ -14,6 +14,7 @@ class WelcomeController extends Controller
             $query->where('category_name', 'LIKE', '%'.$request->search.'%');})
             ->orderBy('category_name','asc')->get();
         $products = Product::all();
+        // return response()->json($products);
         return view('index',compact('categories','products'));
     }
 
@@ -22,6 +23,7 @@ class WelcomeController extends Controller
         $categories = Category::when($request->search, function($query) use($request){
             $query->where('category_name', 'LIKE', '%'.$request->search.'%');})
             ->orderBy('category_name','asc')->get();
+        // return response()->json($categories);
         return view('menu',compact('categories'));
     }
 }
